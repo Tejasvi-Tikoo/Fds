@@ -1,0 +1,147 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+#define size 50
+class stack
+{
+    int top;
+    public:
+    char a[size];
+    stack();
+    void push(char s);
+    char pop();
+    int isfull();
+    int isempty();
+    void convert(char[],char[]);
+    int ispalindrome(char[]);
+    void reverse(char[]);
+};
+stack::stack()
+{
+   top =-1;
+}
+int stack::isfull()
+{
+    if(top==size-1)
+    {
+        cout<<"stack is full";
+        return 1;
+    }
+    else
+    return 0;
+}
+int stack::isempty()
+{
+   if(top==-1)
+    return 1;
+   else
+     return 0;
+}
+void stack::push(char s)
+{
+    if(!isfull())
+    {
+        top++;
+        a[top]=s;
+    }
+    else
+      cout<<"stack is full";
+}
+char stack::pop()
+{
+    if(!isempty())
+    {
+        char x;
+        x=a[top];
+        top--;
+        return x;
+    }
+    else
+      cout<<"cannot pop ";
+}
+void stack::convert(char str[],char str1[])
+{   
+    int i=0;
+    int j=0;
+    for(int i=0;str[i]!='\0';i++)
+    {
+        if((str[i]>='a'&& str[i]<='z') || (str[i]>='A'&& str[i]<='Z'))
+          str1[j++]=tolower(str[i]);
+    }
+    str1[j]='\0';
+}
+void stack::reverse(char str[30]) 
+{
+    for(int i=0;str[i]!='\0';i++)
+    {
+        push(str[i]);
+    }
+    cout<<"\n\treverse string =";
+    while(!isempty())
+    {
+        cout<<pop();
+    }
+}
+int stack::ispalindrome(char str[30])
+{   int i;
+    int flag=1;
+    for(int i=0;str[i]!='\0';i++)
+       push(str[i]);
+    i=0;
+    while(!isempty())
+    {
+        if(str[i++]!=pop())
+        {
+            flag=0;
+            top=-1;
+            break;
+        
+        }
+    }
+    return flag;
+}
+
+
+
+int main()
+{
+    char str[30],str1[30];
+    stack stk;
+    cout<<"\nEnter the string to be checked for palindrome =";
+    cin.getline(str,29);
+    cout<<"\nentered string is"<< str;
+    stk.convert(str,str1);
+    cout<<"\nconverted string is="<<str1;
+    
+    if(stk.ispalindrome(str1))
+      cout<<"\n\tstring is palindrome";
+    else
+       cout<<"\n\tstring is not palindrome";
+    cout<<"\n\tenter the string to be reversed=";
+    cin.getline(str,29);
+    cout<<"\n\tentered string is "<<str;
+    stk.reverse(str);
+    return 0;
+    
+       
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
